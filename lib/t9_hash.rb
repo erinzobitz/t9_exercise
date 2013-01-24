@@ -14,6 +14,7 @@ class T9Hash
   }
 
   def initialize(hash)
+    Dictionary.load_dictionary
   end
 
   def to_words

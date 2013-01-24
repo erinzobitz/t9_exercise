@@ -20,6 +20,8 @@ class Translator
 
   def self.to_words(t9_word)
     hash = T9Hash.new(t9_word)
-    hash.to_words
+    words = hash.to_words
+    return words.split(",")
+
   end
 end
