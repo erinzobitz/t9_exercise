@@ -1,6 +1,7 @@
 require_relative 'dictionary'
 
 class T9Hash
+  attr_accessor :number_hash
 
   REVERSE_LOOKUP_TABLE = {
     "2" => ["a", "b", "c"],
@@ -15,9 +16,11 @@ class T9Hash
 
   def initialize(hash)
     Dictionary.load_dictionary
+    @number_hash = hash
   end
 
   def to_words
+    translate
   end
 
   private
@@ -30,16 +33,28 @@ class T9Hash
   # This converts the T9 numbers into letters
   # i.e. 2 => ["a", "b", "c"]
   def perform_lookup
+    number_hash.split("").map do | i |
+      REVERSE_LOOKUP_TABLE[i] 
+    end
   end
 
   # This combines a nested array into words
   # i.e. ["g", "h", "i"], ["d", "e", "f"]] => ["ge", "ge", "gf", "hd"..... etc]
   # We want to make sure we have at least one letter for this method to work
   def combine_letters(nested_letters)
+    first_array = nested_letters.shift
+    combos = first_array.product(*nested_letters).map { |a| a.join("") }
   end
 
   # This will find any words that exist in both Dictionary.words and array_of_words
   def filter_against_dictionary(array_of_words)
     return unless array_of_words
+    valid_words = []
+    array_of_words.each do | word |
+      if Dictionary.words.include? word
+        valid_words << word
+      end
+    end
+    valid_words
   end
 end

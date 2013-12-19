@@ -12,7 +12,7 @@ describe T9Hash do
     end
 
     it "should translate a hash into an array of letters" do
-      @t9_hash.should_receive(:perform_lookup)
+      @t9_hash.should_receive(:perform_lookup).and_return([["g", "h", "i"], ["d", "e", "f"]])
       @t9_hash.to_words
     end
 

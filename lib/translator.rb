@@ -14,14 +14,14 @@ class Translator
 
   def self.to_hash(word)
     word_hash = ""
-
+    word.split("").each do |letter|
+      word_hash += LOOKUP_TABLE[letter].to_s 
+    end
     return word_hash
   end
 
   def self.to_words(t9_word)
     hash = T9Hash.new(t9_word)
-    words = hash.to_words
-    return words.split(",")
-
+    hash.to_words
   end
 end
